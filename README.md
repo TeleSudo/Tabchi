@@ -41,7 +41,7 @@ chmod+x launch.sh
 
 ```
 
-#دستورات اتولانچ
+## دستورات اتولانچ
 ```sh
 sudo killall screen
 sudo killall tmux
@@ -49,8 +49,8 @@ sudo killall telegram-cli
 sudo tmux new-session -s script "bash steady.sh -t"
 ```
 
-#باتشکر
+## باتشکر
 [ITEAM](https://telegram.me/iTeam_ir)
 
-#تهیه شده توسط
+## تهیه شده توسط
 [LuaError](https://telegram.me/LuaError)
