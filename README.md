@@ -30,7 +30,7 @@
 sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev lua-socket lua-sec lua-expat libevent-dev make unzip git redis-server autoconf g++ libjansson-dev libpython-dev expat libexpat1-dev
 
 #کد نصب بوت
-cd #HOME
+cd $HOME
 git clone https://github.com/TeleSudo/TTabchi
 cd TTabchi
 git clone --recursive https://github.com/janlou/tg.git
@@ -40,3 +40,17 @@ chmod+x launch.sh
 ./launch.sh
 
 ```
+
+#دستورات اتولانچ
+```sh
+sudo killall screen
+sudo killall tmux
+sudo killall telegram-cli
+sudo tmux new-session -s script "bash steady.sh -t"
+```
+
+#باتشکر
+[ITEAM](https://telegram.me/iTeam_ir)
+
+#تهیه شده توسط
+[LuaError](https://telegram.me/LuaError)
