@@ -36,7 +36,7 @@ cd TTabchi
 git clone --recursive https://github.com/janlou/tg.git
 cd tg
 ./configure && make
-chmod+x launch.sh
+chmod +x launch.sh
 ./launch.sh
 
 ```
