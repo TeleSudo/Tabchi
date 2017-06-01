@@ -10,6 +10,7 @@ function pre_process(msg)
 if msg.media then
   if msg.media.type:match("contact") then
     add_contact(msg.media.phone, ""..(msg.media.first_name or "-").."", ""..(msg.media.last_name or "-").."", ok_cb, false)
+    return reply_msg(msg.id,'ادی گلم بیا پیوی', ok_cb, false)
   elseif msg.media.caption then
     if msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)") then
       local link = {msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)")}
