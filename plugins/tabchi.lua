@@ -145,7 +145,7 @@ function stats(cb_extra, success, result)
 end
 
 function run(msg,matches)
-if matches[1] == "setpm" then 
+if matches[1] == "settext" then 
 if not is_sudo(msg) then 
 return 'شما سودو نیستید' 
 end 
@@ -163,6 +163,52 @@ local hash = ('bot:pm')
 	   return 'پیغام کنونی:\n\n'..pm
     end
 end
+if matches[1]== "help" and is_sudo(msg) then
+local text =[[
+🛑Brodcast Option:
+🔰!pm [Id] [Text]🔰
+ارسال پیام به ایدی موردنظر
+🔰!bc [text]🔰
+ارسال پیغام همگانی
+🔰!fwdall {reply on msg}🔰
+فوروارد همگانی 
+---------------------------------
+🛑User Option:
+🔰!block [Id]🔰
+بلاک کردن فرد مورد نظر
+🔰!unblock [id]🔰
+انبلاک کردن فرد مور نظر
+---------------------------------
+🛑Contacts Option:
+🔰!addcontact [phone] [FirstName][LastName]🔰
+اضافه کردن یک کانتکت
+🔰!delcontact [phone] [FirstName][LastName]🔰
+حذف کردن یک کانتکت
+🔰!sendcontact [phone] [FirstName][LastName]🔰
+ارسال یک کانتکت
+🔰!contactlist🔰
+ دریافت لیست کانتکت ها
+---------------------------------
+🛑Robot Advanced Option:
+🔰!markread [on]/[off]🔰
+روشن و خاموش کردن تیک مارک رید
+🔰!setphoto {on reply photo}🔰
+ست کردن پروفایل ربات
+🔰!stats🔰
+دریافت آمار ربات
+🔰!addmember🔰
+اضافه کردن کانتکت های ربات به گروه
+🔰!echo [text]🔰
+برگرداندن نوشته
+🔰!export link🔰
+دریافت لینک های ذخیره شده
+🔰!setpm [text]🔰
+تنظیم پیام ادشدن کانتکت
+🔰!reload🔰
+ریلود کردن ربات
+]]
+return text
+end
   if matches[1] == "setphoto" and msg.reply_id and is_sudo(msg) then
     load_photo(msg.reply_id, set_bot_photo, msg)
     return 'Photo Changed'
@@ -178,7 +224,7 @@ end
     end
     return
   end
-  if matches[1] == "pm" and is_sudo(msg) then
+  if matches[1] == "text" and is_sudo(msg) then
     send_large_msg("user#id"..matches[2],matches[3])
     return "Message has been sent"
   end 
@@ -248,11 +294,11 @@ end
   local gps = redis:smembers("selfbot:groups")
   local sgps = redis:smembers("selfbot:supergroups")
   local users = redis:smembers("selfbot:users")
-  for i=1, #gps do
-    fwd_msg(gps[i],id,ok_cb,false)
-  end
   for i=1, #sgps do
     fwd_msg(sgps[i],id,ok_cb,false)
+  end
+  for i=1, #gps do
+    fwd_msg(gps[i],id,ok_cb,false)
   end
   for i=1, #users do
     fwd_msg(users[i],id,ok_cb,false)
@@ -291,8 +337,9 @@ patterns = {
   "^[#!/](bc) (.*)$",
   "^[#!/](fwdall)$",
   "^[!/#](lua) (.*)$",
-  "^[!/#](setpm) (.*)$",
-  "^[!/#](pm) (.*)$",
+  "^[!/#](settext) (.*)$",
+   "^[!/#](text)$",
+  "^[!/#](help)$",
   "(https://telegram.me/joinchat/%S+)",
   "(https://t.me/joinchat/%S+)",
   "^[$](.*)$"
@@ -300,5 +347,5 @@ patterns = {
 run = run,
 pre_process = pre_process
 }
--- @LuaError
---@Tele_sudo
+--@LuaError
+--@Tele_Sudo
