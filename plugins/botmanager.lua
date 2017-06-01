@@ -185,7 +185,7 @@ end
     return "Disabled"
   end
 
-  if matches[1] == '*' and is_sudo(msg) then
+  if matches[1] == 'reload' and is_sudo(msg) then
     reload_plugins(true)
     return "Reloaded"
   end
@@ -197,7 +197,7 @@ return {
     "^[!/#](plist)$",
     "^[!/#]pl (+) ([%w_%.%-]+)$",
     "^[!/#]pl (-) ([%w_%.%-]+)$",
-    "^[!/#]pl (*)$",
+    "^[!/#](reload)$",
 	"^[!/#]([Aa]ddplug) (.*)$",
 	"^[!/#]([Aa]ddplug) (.+) (.*)$",
 	"^[!/#]([Ss]ave) (.*)$",
