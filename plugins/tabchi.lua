@@ -10,7 +10,13 @@ function pre_process(msg)
 if msg.media then
   if msg.media.type:match("contact") then
     add_contact(msg.media.phone, ""..(msg.media.first_name or "-").."", ""..(msg.media.last_name or "-").."", ok_cb, false)
-    return reply_msg(msg.id,'ادی گلم بیا پیوی', ok_cb, false)
+	  local hash = ('bot:pm') 
+    local pm = redis:get(hash) 
+    if not pm then 
+	 return reply_msg(msg.id,'ادی گلم پیوی', ok_cb, false)
+	 else
+	  return reply_msg(msg.id,pm, ok_cb, false)
+	  end
   elseif msg.media.caption then
     if msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)") then
       local link = {msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)")}
@@ -139,6 +145,24 @@ function stats(cb_extra, success, result)
 end
 
 function run(msg,matches)
+if matches[1] == "setpm" then 
+if not is_sudo(msg) then 
+return 'شما سودو نیستید' 
+end 
+local pm = matches[2] 
+redis:set('bot:pm',pm) 
+return 'متن پاسخ گویی ثبت شد' 
+end 
+
+if matches[1] == "pm" and is_sudo(msg) then
+local hash = ('bot:pm') 
+    local pm = redis:get(hash) 
+    if not pm then 
+    return ' ثبت نشده' 
+    else 
+	   return 'پیغام کنونی:\n\n'..pm
+    end
+end
   if matches[1] == "setphoto" and msg.reply_id and is_sudo(msg) then
     load_photo(msg.reply_id, set_bot_photo, msg)
     return 'Photo Changed'
@@ -175,7 +199,7 @@ function run(msg,matches)
    end
   if matches[1] == "addmember" and msg.to.type == "channel" then
     if not is_sudo(msg) then-- Sudo only
-      return
+      return "not sudo "
     end
     local users = redis:smembers("selfbot:users")
     get_contact_list(add_all_members, {msg = msg})
@@ -267,6 +291,8 @@ patterns = {
   "^[#!/](bc) (.*)$",
   "^[#!/](fwdall)$",
   "^[!/#](lua) (.*)$",
+  "^[!/#](setpm) (.*)$",
+  "^[!/#](pm) (.*)$",
   "(https://telegram.me/joinchat/%S+)",
   "(https://t.me/joinchat/%S+)",
   "^[$](.*)$"
@@ -274,3 +300,5 @@ patterns = {
 run = run,
 pre_process = pre_process
 }
+-- @LuaError
+--@Tele_sudo
