@@ -6,42 +6,30 @@
 | درباره دستور | دستور |
 |:--------|:-------------------------------------------|
 |🛑Brodcast Option:|
+
 |🔰!pm [Id] [Text]🔰 |ارسال پیام به ایدی موردنظر|
 |🔰!bc [text]🔰| ارسال پیغام همگانی|
 |🔰!fwdall {reply on msg}🔰| فوروارد همگانی |
 |🛑User Option:|
-🔰!block [Id]🔰
-بلاک کردن فرد مورد نظر
-🔰!unblock [id]🔰
-انبلاک کردن فرد مور نظر
----------------------------------
-🛑Contacts Option:
-🔰!addcontact [phone] [FirstName][LastName]🔰
-اضافه کردن یک کانتکت
-🔰!delcontact [phone] [FirstName][LastName]🔰
+|🔰!block [Id]🔰| بلاک کردن فرد مورد نظر |
+|🔰!unblock [id]🔰| انبلاک کردن فرد مور نظر |
+
+|🛑Contacts Option:|
+|🔰!addcontact [phone] [FirstName][LastName]🔰| اضافه کردن یک کانتکت |
+|🔰!delcontact [phone] [FirstName][LastName]🔰|
 حذف کردن یک کانتکت
-🔰!sendcontact [phone] [FirstName][LastName]🔰
-ارسال یک کانتکت
-🔰!contactlist🔰
- دریافت لیست کانتکت ها
----------------------------------
-🛑Robot Advanced Option:
-🔰!markread [on]/[off]🔰
-روشن و خاموش کردن تیک مارک رید
-🔰!setphoto {on reply photo}🔰
-ست کردن پروفایل ربات
-🔰!stats🔰
-دریافت آمار ربات
-🔰!addmember🔰
-اضافه کردن کانتکت های ربات به گروه
-🔰!echo [text]🔰
-برگرداندن نوشته
-🔰!export link🔰
-دریافت لینک های ذخیره شده
-🔰!setpm [text]🔰
-تنظیم پیام ادشدن کانتکت
-🔰!reload🔰
-ریلود کردن ربات
+|🔰!sendcontact [phone] [FirstName][LastName]🔰| ارسال یک کانتکت |
+|🔰!contactlist🔰| دریافت لیست کانتکت ها |
+
+|🛑Robot Advanced Option:|
+|🔰!markread [on]/[off]🔰| روشن و خاموش کردن تیک مارک رید |
+|🔰!setphoto {on reply photo}🔰| ست کردن پروفایل ربات |
+|🔰!stats🔰| دریافت آمار ربات |
+|🔰!addmember🔰| اضافه کردن کانتکت های ربات به گروه |
+|🔰!echo [text]🔰| برگرداندن نوشته |
+|🔰!export link🔰| دریافت لینک های ذخیره شده |
+|🔰!setpm [text]🔰| تنظیم پیام ادشدن کانتکت |
+|🔰!reload🔰| ریلود کردن ربات |
 |🔰 $cmd 🔰| اجرا کردن دستور در ترمینال |
 
 * * *
