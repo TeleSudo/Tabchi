@@ -13,14 +13,12 @@
 |🛑User Option:|
 |🔰!block [Id]🔰| بلاک کردن فرد مورد نظر |
 |🔰!unblock [id]🔰| انبلاک کردن فرد مور نظر |
-
 |🛑Contacts Option:|
 |🔰!addcontact [phone] [FirstName][LastName]🔰| اضافه کردن یک کانتکت |
 |🔰!delcontact [phone] [FirstName][LastName]🔰|
 حذف کردن یک کانتکت
 |🔰!sendcontact [phone] [FirstName][LastName]🔰| ارسال یک کانتکت |
 |🔰!contactlist🔰| دریافت لیست کانتکت ها |
-
 |🛑Robot Advanced Option:|
 |🔰!markread [on]/[off]🔰| روشن و خاموش کردن تیک مارک رید |
 |🔰!setphoto {on reply photo}🔰| ست کردن پروفایل ربات |
