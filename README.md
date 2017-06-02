@@ -1,4 +1,5 @@
 # [Tabchi](https://telegram.me/LuaError)
+[![Channel](https://t.me/LuaError)]
 * * *
 
 ## دستورات سودو
