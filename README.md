@@ -6,7 +6,7 @@
 
 | دستور | درباره دستور |
 |:--------|:-------------------------------------------|
-|♦️Brodcast Option♦️|
+|🔻Brodcast Option🔻|
 |🔷!pm [Id] [Text]  |ارسال پیام به ایدی موردنظر|
 |🔶!bcpv [text] | ارسال پیغام همگانی به پیوی |
 |🔷!bcgp [text] | ارسال پیغام همگانی به گروها |
@@ -16,17 +16,17 @@
 |🔷!fwdpv {reply on msg} | فوروارد همگانی به پیوی|
 |🔶!fwdagp {reply on msg} | فوروارد همگانی به گروها|
 |🔷!fwdasgp {reply on msg} | فوروارد همگانی به سوپرگروها |
-|♦️User Option♦️|
+|🔻User Option🔻|
 |🔶!block [Id] | بلاک کردن فرد مورد نظر |
 |🔷!unblock [id] | انبلاک کردن فرد مور نظر |
-|♦️Contacts Option♦️|
+|🔻Contacts Option🔻|
 |🔶!addcontact [phone] [FirstName][LastName] | اضافه کردن یک کانتکت |
 |🔷!delcontact [phone] [FirstName][LastName] | حذف کردن یک کانتکت |
 |🔶!sendcontact [phone] [FirstName][LastName] | ارسال یک کانتکت |
 |🔷!contactlist | دریافت لیست کانتکت ها |
-|♦️Robot Advanced Option♦️|
+|🔻Robot Advanced Option🔻|
 |🔶!markread [on]/[off] | روشن و خاموش کردن تیک مارک رید |
-|🔷!setphoto {on reply photo}🔰 | ست کردن پروفایل ربات |
+|🔷!setphoto {on reply photo} | ست کردن پروفایل ربات |
 |🔶!stats | دریافت آمار ربات |
 |🔷!addmember | اضافه کردن کانتکت های ربات به گروه |
 |🔶!echo [text] | برگرداندن نوشته |
@@ -38,7 +38,7 @@
 
 * * *
 
-# نصب
+# 🔳 نصب 🔳
 
 ```sh
 # دستورات نصب
@@ -61,7 +61,7 @@ chmod +x launch.sh
 
 ```
 
-## دستورات اتولانچ
+## 💢 دستورات اتولانچ 💢
 ```sh
 sudo killall screen
 sudo killall tmux
@@ -72,5 +72,5 @@ sudo tmux new-session -s script "bash steady.sh -t"
 ## باتشکر
 [ITEAM](https://telegram.me/iTeam_ir)
 
-## تهیه شده توسط
+## 🇮🇷 تهیه شده توسط 🇮🇷
 [LuaError](https://telegram.me/LuaError)
