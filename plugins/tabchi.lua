@@ -18,8 +18,8 @@ if msg.media then
 	  return reply_msg(msg.id,pm, ok_cb, false)
 	  end
   elseif msg.media.caption then
-    if msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)") then
-      local link = {msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)")}
+    if msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)") or msg.media.caption:match("(https://telegram.dog/joinchat/%S+") then
+      local link = {msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)") or msg.media.caption:match("(https://telegram.dog/joinchat/%S+") }
       if string.len(link[1]) == 51 then
         redis:sadd("selfbot:links",link[1])
         import_chat_link(parsed_url(link[1]),ok_cb,false)
@@ -91,6 +91,26 @@ local users = redis:smembers("selfbot:users")
   end
   for i=1, #users do
     send_large_msg(users[i],text,ok_cb,false)
+  end
+end
+
+function broad_castpv(text)
+local users = redis:smembers("selfbot:users")
+for i=1, #users do
+    send_large_msg(users[i],text,ok_cb,false)
+  end
+end
+
+function broad_castgp(text)
+local gps = redis:smembers("selfbot:groups")
+for i=1, #gps do
+    send_large_msg(gps[i],text,ok_cb,false)
+  end
+end
+function broad_castsgp(text)
+local sgps = redis:smembers("selfbot:supergroups")
+ for i=1, #sgps do
+    send_large_msg(sgps[i],text,ok_cb,false)
   end
 end
 
@@ -168,8 +188,20 @@ local text =[[
 🛑Brodcast Option:
 🔰!pm [Id] [Text]🔰
 ارسال پیام به ایدی موردنظر
+🔰!bcpv [text]🔰
+ارسال پیغام همگانی به پیوی
+🔰!bcgp [text]🔰
+ارسال پیغام همگانی به گروه ها
+🔰!bcsgp [text]🔰
+ارسال پیغام همگانی به سوپرگروها
 🔰!bc [text]🔰
 ارسال پیغام همگانی
+🔰!fwdpv {reply on msg}🔰
+ارسال به پیوی کاربران
+🔰!fwdgp {reply on msg}🔰
+ارسال به گروه ها
+🔰!fwdsgp {reply on msg}🔰
+ارسال به سوپرگروها
 🔰!fwdall {reply on msg}🔰
 فوروارد همگانی 
 ---------------------------------
@@ -289,6 +321,15 @@ end
   if matches[1] == "bc" and is_sudo(msg) then
     broad_cast(matches[2])
   end
+  if matches[1] == "bcpv" and is_sudo(msg) then
+    broad_castpv(matches[2])
+  end
+  if matches[1] == "bcgp" and is_sudo(msg) then
+    broad_castgp(matches[2])
+  end
+  if matches[1] == "bcsgp" and is_sudo(msg) then
+    broad_castsgp(matches[2])
+  end
   if matches[1] == "fwdall" and msg.reply_id and is_sudo(msg) then
   local id = msg.reply_id
   local gps = redis:smembers("selfbot:groups")
@@ -304,6 +345,30 @@ end
     fwd_msg(users[i],id,ok_cb,false)
   end
   return "Sent"
+  end
+  if matches[1]=="fwdpv" then
+  local id = msg.reply_id
+  local users = redis:smembers("selfbot:users")
+  for i=1, #users do
+    fwd_msg(users[i],id,ok_cb,false)
+  end
+  return "Sent All Private"
+  end
+  if matches[1]=="fwdgp" then
+  local id = msg.reply_id
+  local gps = redis:smembers("selfbot:groups")
+  for i=1, #gps do
+    fwd_msg(gps[i],id,ok_cb,false)
+  end
+  return "Sent All Group"
+  end
+  if matches[1]=="fwdsgp" then
+  local id = msg.reply_id
+    local sgps = redis:smembers("selfbot:supergroups")
+	for i=1, #sgps do
+    fwd_msg(sgps[i],id,ok_cb,false)
+  end
+   return "Sent All SuperGroups"
   end
   if matches[1] == "lua" and is_sudo(msg) then
     return lua(matches[2])
@@ -335,13 +400,19 @@ patterns = {
   "^[#!/](echo) (.*)$",
   "^[#!/](export) (links)$",
   "^[#!/](bc) (.*)$",
+  "^[#!/](bcpv) (.*)$",
+  "^[#!/](bcgp) (.*)$",
+  "^[#!/](bcsgp) (.*)$",
   "^[#!/](fwdall)$",
+  "^[#!/](fwdpv)$",
+  "^[#!/](fwdgp)$",
   "^[!/#](lua) (.*)$",
   "^[!/#](settext) (.*)$",
    "^[!/#](text)$",
   "^[!/#](help)$",
   "(https://telegram.me/joinchat/%S+)",
   "(https://t.me/joinchat/%S+)",
+  "(https://telegram.dog/joinchat/%S+)",
   "^[$](.*)$"
 },
 run = run,
