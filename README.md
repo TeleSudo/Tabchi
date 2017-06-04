@@ -78,6 +78,6 @@ sudo tmux new-session -s script "bash steady.sh -t"
 ## 🇮🇷 تهیه شده توسط 🇮🇷
 [LuaError](https://telegram.me/LuaError)
 
-# [گروه حل مشکلات](https://t.me/joinchat/AAAAAEHcoeywwiAAcrt7QA)
+# [گروه حل مشکلات](https://t.me/joinchat/AAAAAEHcoez4AiD4h4C-bQ)
 
 # [سازنده](https://t.me/ThatsAlone)
