@@ -1,4 +1,13 @@
+local sudomsg = 282958812 -- put your id here
+local function reload_plugins( )
+  plugins = {}
+  load_plugins()
+end
 
+function save_config( )
+  serialize_to_file(_config, './data/config.lua')
+  print ('saved config into ./data/config.lua')
+end
 
 local function parsed_url(link)
   local parsed_link = URL.parse(link)
@@ -18,9 +27,23 @@ if msg.media then
 	  return reply_msg(msg.id,pm, ok_cb, false)
 	  end
   elseif msg.media.caption then
-    if msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)") or msg.media.caption:match("(https://telegram.dog/joinchat/%S+") then
-      local link = {msg.media.caption:match("(https://telegram.me/joinchat/%S+)") or msg.media.caption:match("(https://t.me/joinchat/%S+)") or msg.media.caption:match("(https://telegram.dog/joinchat/%S+") }
+    if msg.media.caption:match("(https://telegram.me/joinchat/%S+)") then
+      local link = {msg.media.caption:match("(https://telegram.me/joinchat/%S+)")} 
       if string.len(link[1]) == 51 then
+        redis:sadd("selfbot:links",link[1])
+        import_chat_link(parsed_url(link[1]),ok_cb,false)
+      end
+    end
+	if msg.media.caption:match("(https://t.me/joinchat/%S+)") then
+      local link = {msg.media.caption:match("(https://t.me/joinchat/%S+)")}
+      if string.len(link[1]) == 44 then
+        redis:sadd("selfbot:links",link[1])
+        import_chat_link(parsed_url(link[1]),ok_cb,false)
+      end
+    end
+	if msg.media.caption:match("(https://telegram.dog/joinchat/%S+)") then
+      local link = {msg.media.caption:match("(https://telegram.dog/joinchat/%S+)")}
+      if string.len(link[1]) == 52 then
         redis:sadd("selfbot:links",link[1])
         import_chat_link(parsed_url(link[1]),ok_cb,false)
       end
@@ -70,6 +93,15 @@ function export_links(msg)
   file:close()
   send_document(get_receiver(msg),"group_links.txt",ok_cb,false)
 end
+
+local function getindex(t,id) 
+for i,v in pairs(t) do 
+if v == id then 
+return i 
+end 
+end 
+return nil 
+end 
 
 function reset_stats()
   redis:set("pv:msgs",0)
@@ -238,6 +270,14 @@ local text =[[
 تنظیم پیام ادشدن کانتکت
 🔰!reload🔰
 ریلود کردن ربات
+🔰!addsudo [id]🔰
+اضافه کردن سودو
+🔰!remsudo [id]🔰
+اضافه کردن سودو
+🔰!serverinfo🔰
+نمایش وضعیت سورس
+---------------------------------
+channel : @LuaError
 ]]
 return text
 end
@@ -376,12 +416,51 @@ end
   if matches[1] == "echo" and is_sudo(msg) then
     return matches[2]
   end
-  if msg.text:match("https://telegram.me/joinchat/%S+") or msg.text:match("(https://t.me/joinchat/%S+)") then
+  if msg.text:match("https://telegram.me/joinchat/%S+") then
     if string.len(matches[1]) == 51 and not redis:sismember("selfbot:links",matches[1]) then
       redis:sadd("selfbot:links",matches[1])
       import_chat_link(parsed_url(matches[1]),ok_cb,false)
     end
   end
+  if  msg.text:match("https://t.me/joinchat/%S+") then
+    if string.len(matches[1]) == 44 and not redis:sismember("selfbot:links",matches[1]) then
+      redis:sadd("selfbot:links",matches[1])
+      import_chat_link(parsed_url(matches[1]),ok_cb,false)
+    end
+  end
+  if  msg.text:match("https://telegram.dog/joinchat/%S+") then
+    if string.len(matches[1]) == 52 and not redis:sismember("selfbot:links",matches[1]) then
+      redis:sadd("selfbot:links",matches[1])
+      import_chat_link(parsed_url(matches[1]),ok_cb,false)
+    end
+  end
+  if matches[1] == 'addsudo' then
+if msg.from.id and msg.from.id == tonumber(sudomsg) then
+table.insert(_config.sudo_users,tonumber(matches[2]))
+    print(matches[2]..' added to sudo users')
+    save_config()
+  reload_plugins(true)
+  return "User "..matches[2].." added to sudo users"
+  else
+  return "error"
+  end
+  end
+  
+  if matches[1] == 'remsudo' then
+if msg.from.id and msg.from.id == tonumber(sudomsg) then
+ table.remove(_config.sudo_users, getindex( _config.sudo_users, tonumber(msg.to.id)))
+    print(matches[2]..' added to sudo users')
+    save_config()
+  reload_plugins(true)
+  return "User "..matches[2].." remove from sudo users"
+  else
+  return "error"
+  end
+  end
+if matches[1]== "serverinfo" and is_sudo(msg) then
+local text = io.popen("sh ./data/cmd.sh"):read('*all')
+  return text
+end
 end
 return {
 patterns = {
@@ -409,8 +488,11 @@ patterns = {
   "^[#!/](fwdsgp)$",
   "^[!/#](lua) (.*)$",
   "^[!/#](settext) (.*)$",
-   "^[!/#](text)$",
+  "^[!/#](text)$",
   "^[!/#](help)$",
+  "^[!/#](addsudo) (.*)$",
+  "^[!/#](remsudo) (.*)$",
+  "^[!/#](serverinfo)$",
   "(https://telegram.me/joinchat/%S+)",
   "(https://t.me/joinchat/%S+)",
   "(https://telegram.dog/joinchat/%S+)",
