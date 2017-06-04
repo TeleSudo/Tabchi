@@ -31,4 +31,4 @@ echo '🔘  Processes : '"$ProcessCnt"
 echo "🔷🔶🔷🔶🔷🔶🔷🔶"
 echo '🔘 Uptime : '"$uptime"
 echo "🔷🔶🔷🔶🔷🔶🔷🔶🔷🔶🔷🔶"
-
+echo "@LuaError"
