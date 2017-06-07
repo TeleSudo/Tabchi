@@ -58,7 +58,7 @@ git clone --recursive https://github.com/janlou/tg.git
 cd tg
 ./configure && make
 cd
-cd TTabchi
+cd Tabchi
 chmod +x launch.sh
 ./launch.sh
 
