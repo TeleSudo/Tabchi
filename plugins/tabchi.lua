@@ -268,9 +268,9 @@ local text =[[
 اضافه کردن کانتکت های ربات به گروه
 🔷!echo [text]
 برگرداندن نوشته
-🔶!export link
+🔶!export links
 دریافت لینک های ذخیره شده
-🔷!setpm [text]
+🔷!settext [text]
 تنظیم پیام ادشدن کانتکت
 🔶!reload
 ریلود کردن ربات
