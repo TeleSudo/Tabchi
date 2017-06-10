@@ -15,6 +15,7 @@ local function parsed_url(link)
   return parsed_path[2]
 end
 
+
 function pre_process(msg)
 if msg.media then
   if msg.media.type:match("contact") then
@@ -106,9 +107,10 @@ end
 function reset_stats()
   redis:set("pv:msgs",0)
   redis:set("gp:msgs",0)
-  redis:del("selfbot:groups")
-  redis:del("selfbot:users")
-  return "Stats Has Been Reset"
+  redis:set("supergp:msgs",0)
+  redis:del("selfbot:groups",0)
+  redis:del("selfbot:users",0)
+  redis:del("selfbot:supergroups",0)
 end
 
 function broad_cast(text)
@@ -192,7 +194,7 @@ function stats(cb_extra, success, result)
   for k,v in pairs(result) do
     i = i+1
   end
-  local text = "<b>Users </b>: "..users2.."\n<b>Private Messages </b>: "..pvmsgs.."\n\n<b>Groups </b>: "..gps2.."\n<b>Groups Messages </b>: "..gpmsgs.."\n\n<b>SuperGroups </b>: "..sgps2.."\n<b>SuperGroup Messages </b>: "..sgpmsgs.."\n\n<b>Total Saved Links </b>: "..#links.."\n<b>Total Saved Contacts </b>: "..i
+   local text = "🍃Private User🍃\n♦️"..users2.."♦️\n💭Private Messages Recived💭:\n♦️"..pvmsgs.."♦️\n\n💠Groups💠:\n♦️"..gps2.."♦️\n🔰Groups Messages🔰:\n♦️"..gpmsgs.."♦️\n\n🌐SuperGroups🌐:\n♦️"..sgps2.."♦️\n✳️SuperGroup Messages✳️ :\n♦️"..sgpmsgs.."♦️\n\n💢Total Saved Links💢:\n ♦️"..#links.."♦️\n⚜️Total Saved Contacts⚜️:\n ♦️"..i.."♦️"
   send_large_msg(get_receiver(cb_extra.msg),text, ok_cb, false)
 end
 
@@ -217,67 +219,79 @@ local hash = ('bot:pm')
 end
 if matches[1]== "help" and is_sudo(msg) then
 local text =[[
-🛑Brodcast Option:
-🔰!pm [Id] [Text]🔰
+🍃TTabchiHelp By @LuaError🍃
+---------------------------------
+♦️Brodcast Option🍃
+🔶!pm [Id] [Text]
 ارسال پیام به ایدی موردنظر
-🔰!bcpv [text]🔰
+🔷!bcpv [text]
 ارسال پیغام همگانی به پیوی
-🔰!bcgp [text]🔰
+🔶!bcgp [text]
 ارسال پیغام همگانی به گروه ها
-🔰!bcsgp [text]🔰
+🔷!bcsgp [text]
 ارسال پیغام همگانی به سوپرگروها
-🔰!bc [text]🔰
+🔶!bc [text]
 ارسال پیغام همگانی
-🔰!fwdpv {reply on msg}🔰
+🔷!fwdpv {reply on msg}
 ارسال به پیوی کاربران
-🔰!fwdgp {reply on msg}🔰
+🔶!fwdgp {reply on msg}
 ارسال به گروه ها
-🔰!fwdsgp {reply on msg}🔰
+🔷!fwdsgp {reply on msg}
 ارسال به سوپرگروها
-🔰!fwdall {reply on msg}🔰
+🔶!fwdall {reply on msg}
 فوروارد همگانی 
 ---------------------------------
-🛑User Option:
-🔰!block [Id]🔰
+♦️User Option:
+🔷!block [Id]
 بلاک کردن فرد مورد نظر
-🔰!unblock [id]🔰
+🔶!unblock [id]
 انبلاک کردن فرد مور نظر
 ---------------------------------
-🛑Contacts Option:
-🔰!addcontact [phone] [FirstName][LastName]🔰
+♦️Contacts Option 🍃
+🔷!addcontact [phone] [FirstName][LastName]
 اضافه کردن یک کانتکت
-🔰!delcontact [phone] [FirstName][LastName]🔰
+🔶!delcontact [phone] [FirstName][LastName]
 حذف کردن یک کانتکت
-🔰!sendcontact [phone] [FirstName][LastName]🔰
+🔷!sendcontact [phone] [FirstName][LastName]
 ارسال یک کانتکت
-🔰!contactlist🔰
- دریافت لیست کانتکت ها
+🔶!contactlist
+دریافت لیست کانتکت ها
 ---------------------------------
-🛑Robot Advanced Option:
-🔰!markread [on]/[off]🔰
+♦️Robot Advanced Option 🍃
+🔷!markread [on]/[off]
 روشن و خاموش کردن تیک مارک رید
-🔰!setphoto {on reply photo}🔰
+🔶!setphoto {on reply photo}
 ست کردن پروفایل ربات
-🔰!stats🔰
+🔷!stats
 دریافت آمار ربات
-🔰!addmember🔰
+🔶!addmember
 اضافه کردن کانتکت های ربات به گروه
-🔰!echo [text]🔰
+🔷!echo [text]
 برگرداندن نوشته
-🔰!export link🔰
+🔶!export link
 دریافت لینک های ذخیره شده
-🔰!setpm [text]🔰
+🔷!setpm [text]
 تنظیم پیام ادشدن کانتکت
-🔰!reload🔰
+🔶!reload
 ریلود کردن ربات
-🔰!addsudo [id]🔰
+🔷!addsudo [id]
 اضافه کردن سودو
-🔰!remsudo [id]🔰
+🔶!remsudo [id]
 اضافه کردن سودو
-🔰!serverinfo🔰
+🔷!serverinfo
 نمایش وضعیت سورس
+🔶!addtoall [id]
+اضافه کردن مخاطب به گروها
+🔷!reset stats
+ریست کردن امار ربات
+🔶!leave 
+لفت دادن ربات ازگروه جاری
+🔷!leave [id]
+لفت دادن ربات ازگروه موردنظر
+🔶!myinfo
+دریافت اطلاعات 
 ---------------------------------
-channel : @LuaError
+🔷channel : @LuaError 🍃
 ]]
 return text
 end
@@ -461,6 +475,28 @@ if matches[1]== "serverinfo" and is_sudo(msg) then
 local text = io.popen("sh ./data/cmd.sh"):read('*all')
   return text
 end
+  if matches[1]== "addtoall" and is_sudo(msg) then
+  local sgps = redis:smembers("selfbot:supergroups")
+    for i=1, #sgps do
+     channel_invite(sgps[i],matches[2],ok_cb,false)
+    end
+  return"user ♦️"..matches[2].."♦️ Added To all SuperGroup\n SuperGroup Stats ♦️" ..#sgps.. "♦️"
+  end
+  if matches[1]=="reset stats" then
+  reset_stats()
+  return"Stats HasBeen Reset"
+  end
+  if matches[1]== "leave" and is_sudo(msg) then
+  local receiver = get_receiver(msg)
+    leave_channel(receiver, ok_cb, false)
+  end
+  if matches[1]=="leave" and is_sudo(msg) then
+  leave_channel(matches[2], ok_cb, false)
+  send_large_msg(msg.to.id,"Robot Left "..matches[2],ok_cb,false)
+  end
+  if matches[1]=="myinfo" and is_sudo(msg) then
+  return "♦️YourName♦️"..msg.from.first_name.."\n♦️YourId♦️"..msg.from.id.."\n♦️Group Id♦️"..msg.to.id.."\n@LuaError"
+  end
 end
 return {
 patterns = {
@@ -493,6 +529,11 @@ patterns = {
   "^[!/#](addsudo) (.*)$",
   "^[!/#](remsudo) (.*)$",
   "^[!/#](serverinfo)$",
+  "^[!/#](addtoall) (.*)$",
+  "^[!/#](leave) (.*)$",  
+  "^[!/#](leave)$",  
+  "^[!/#](myinfo)$",  
+  "^[!/#](reset stats)$",
   "(https://telegram.me/joinchat/%S+)",
   "(https://t.me/joinchat/%S+)",
   "(https://telegram.dog/joinchat/%S+)",
