@@ -1,4 +1,4 @@
-# [Tabchi V2.1](https://telegram.me/LuaError)
+# [Tabchi V2.2.1](https://telegram.me/TeleSudo/Tabchi)
 
 * * *
 
@@ -37,6 +37,10 @@
 |🔷!addsudo [id]| اضافه کردن سودو به ربات |
 |🔶!remsudo [id]| حذف کردن سودو ربات |
 |🔷!serverinfo| نمایش وضعیت سرور |
+|🔶!reset stats|ریست کردن آمار تبچی|
+|🔷!leave| لفت دادن ربات از گروه|
+|🔶!leave [id] |لفت دادن تبچی از گروهی که گفته شده|
+|🔷!addtoall [id] |اد کردن فرد مورد نظر به گروهای موردنظر|
 |🔶 $cmd | اجرا کردن دستور در ترمینال |
 
 * * *
