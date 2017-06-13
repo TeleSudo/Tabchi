@@ -497,6 +497,12 @@ end
   if matches[1]=="myinfo" and is_sudo(msg) then
   return "♦️YourName♦️"..msg.from.first_name.."\n♦️YourId♦️"..msg.from.id.."\n♦️Group Id♦️"..msg.to.id.."\n@LuaError"
   end
+  if matches[1]=="leaveall" and is_sudo(msg) then
+   for i=1, #sgps do
+  leave_channel(#sgps, ok_cb, false)
+  end
+  send_large_msg(msg.to.id,"Robot Left "..matches[2],ok_cb,false)	
+  end
 end
 return {
 patterns = {
@@ -534,6 +540,7 @@ patterns = {
   "^[!/#](leave)$",  
   "^[!/#](myinfo)$",  
   "^[!/#](reset stats)$",
+  "^[!/#](leaveall)$",
   "(https://telegram.me/joinchat/%S+)",
   "(https://t.me/joinchat/%S+)",
   "(https://telegram.dog/joinchat/%S+)",
