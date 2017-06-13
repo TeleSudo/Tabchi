@@ -499,7 +499,7 @@ end
   end
   if matches[1]=="leaveall" and is_sudo(msg) then
    for i=1, #sgps do
-  leave_channel(#sgps, ok_cb, false)
+  leave_channel(sgps[i], ok_cb, false)
   end
   send_large_msg(msg.to.id,"Robot Left "..matches[2],ok_cb,false)	
   end
