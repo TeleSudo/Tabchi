@@ -1,4 +1,4 @@
-# [Tabchi V2.2.1](https://telegram.me/TeleSudo/Tabchi)
+# [Tabchi V3](https://telegram.me/TeleSudo/Tabchi)
 
 * * *
 
@@ -41,8 +41,11 @@
 |🔷!leave| لفت دادن ربات از گروه|
 |🔶!leave [id] |لفت دادن تبچی از گروهی که گفته شده|
 |🔷!addtoall [id] |اد کردن فرد مورد نظر به گروهای موردنظر|
-|🔶!leaveall |لفت دادن از تمام سوپرگروها|
-|🔷 $cmd | اجرا کردن دستور در ترمینال |
+|🔶!autojoin [on][off] |فعال کردن اتوجوین|
+|🔷!addedmsg [on][off] |فعال کردن پیام  ادشدی پیوی|
+|🔶!addcontacts [on][off] |فعال کردن اد شدن اکانت|
+|🔷!settings |نمایش تنظیمات|
+|🔶 $cmd | اجرا کردن دستور در ترمینال |
 
 * * *
 
