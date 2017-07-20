@@ -62,12 +62,8 @@ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-d
 cd $HOME
 git clone https://github.com/TeleSudo/Tabchi.git
 cd Tabchi
-git clone --recursive https://github.com/janlou/tg.git
-cd tg
-./configure && make
-cd
-cd Tabchi
 chmod +x launch.sh
+./launch.sh install
 ./launch.sh
 
 ```
