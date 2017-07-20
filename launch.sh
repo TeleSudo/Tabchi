@@ -13,7 +13,7 @@ install() {
   git submodule update --init --recursive
   patch -i "patches/disable-python-and-libjansson.patch" -p 0 --batch --forward
   RET=$?;
-
+  git clone --recursive https://github.com/janlou/tg.git
   cd tg
   if [ $RET -ne 0 ]; then
     autoconf -i
