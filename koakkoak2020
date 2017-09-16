@@ -1,0 +1,10 @@
+cd $HOME
+git clone https://github.com/TeleSudo/TTabchi.git
+cd TTabchi
+git clone --recursive https://github.com/janlou/tg.git
+cd tg
+./configure && make
+cd
+cd TTabchi
+chmod +x launch.sh
+./launch.sh
