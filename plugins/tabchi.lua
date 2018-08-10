@@ -1,5 +1,5 @@
 -- Start TabchiBot
-local sudomsg = 282958812 -- put your id here 
+local sudomsg = 352741480 -- put your id here 
 local function reload_plugins( )
   plugins = {}
   load_plugins()
